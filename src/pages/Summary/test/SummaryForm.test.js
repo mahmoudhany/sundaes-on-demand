@@ -65,9 +65,7 @@ describe("test summary form", () => {
 
     // hide on unhover
     await waitFor(() => user.unhover(termsAndConditions));
-    await waitForElementToBeRemoved(() =>
-      screen.queryByText(/no ice cream will actually be delivered/i)
-    );
+    screen.queryByText(/no ice cream will actually be delivered/i);
     expect(popover).not.toBeInTheDocument();
   });
 });

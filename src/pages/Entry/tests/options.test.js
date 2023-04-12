@@ -1,4 +1,4 @@
-import { render, screen, waitFor } from "@testing-library/react";
+import { render, screen } from "../../../test-utils/test-utils";
 import { Options } from "../Options";
 
 describe("test options", () => {
@@ -9,7 +9,7 @@ describe("test options", () => {
     expect(scoopImages).toHaveLength(2);
 
     const altText = scoopImages.map((elm) => elm.alt);
-    expect(altText).toEqual(["Mint chip scoop", "Vanilla scoop"]);
+    expect(altText).toEqual(["Chocolate scoop", "Vanilla scoop"]);
   });
 
   test("should display image for each topping from the server", async () => {

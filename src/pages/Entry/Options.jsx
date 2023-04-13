@@ -12,17 +12,26 @@ export const Options = ({ optionType }) => {
   const [items, setItems] = useState([]);
   const [error, setError] = useState(false);
   const { totals } = useOrderDetails();
+  const controller = new AbortController();
+
   const getData = async () => {
     try {
-      const { data } = await axios.get(`http://localhost:3030/${optionType}`);
+      const { data } = await axios.get(`http://localhost:3030/${optionType}`, {
+        signal: controller.signal,
+      });
       setItems(data);
     } catch (error) {
-      setError(true);
+      if (error.name !== "CanceledError") {
+        setError(true);
+      }
     }
   };
 
   useEffect(() => {
     getData();
+    return () => {
+      controller.abort();
+    };
   }, [optionType]);
 
   if (error) {
@@ -30,10 +39,11 @@ export const Options = ({ optionType }) => {
   }
   const ItemComponent = optionType === "scoops" ? ScoopOption : ToppingOption;
 
-  const title = optionType[0].toUpperCase() + optionType.slice(1);
+  // console.log(optionType[0]);
+  // const title = optionType[0].toUpperCase() + optionType.slice(1);
   return (
     <>
-      <h2>{title}</h2>
+      <h2 className="text-capitalize">{optionType}</h2>
       <p>{formatCurrency(PRICE_PER_ITEM[optionType])} each</p>
       <p>
         {optionType} total: {formatCurrency(totals[optionType])}

@@ -5,7 +5,7 @@ const AllTheProviders = ({ children }) => {
   return <OrderDetailsProvider>{children}</OrderDetailsProvider>;
 };
 export const renderWithProviders = (ui, options) => {
-  render(ui, { wrapper: AllTheProviders, ...options });
+  return render(ui, { wrapper: AllTheProviders, ...options });
 };
 
 // re-export everything

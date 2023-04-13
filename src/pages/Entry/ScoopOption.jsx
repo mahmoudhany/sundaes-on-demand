@@ -4,6 +4,7 @@ import { useOrderDetails } from "../../contexts/OrderDetails";
 
 const ScoopOption = ({ name, imagePath }) => {
   const { updateItemCount } = useOrderDetails();
+
   const handleChange = (event) => {
     const currentValue = event.target.value;
 
@@ -19,7 +20,7 @@ const ScoopOption = ({ name, imagePath }) => {
 
     // // adjust scoop count with currentValue if it's valid; 0 if it's not
     // const newValue = valueIsValid ? parseInt(currentValue) : 0;
-    updateItemCount(name, parseFloat(currentValue), "scoops");
+    updateItemCount(name, currentValueFloat, "scoops");
   };
   return (
     <Col xs={12} sm={6} md={4} lg={3} style={{ textAlign: "center" }}>
